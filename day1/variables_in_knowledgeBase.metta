@@ -28,4 +28,7 @@
 
  
  ;the last line of code shows there is an intersection between robots and humans
- ; and that intersection is the ability to reason.
+ ; and that intersection is the ability to reason. now using the concept of match, 
+ ;let us find out those that can reason in our knowledge base
+
+ !(match &self (imply ($unknown $something) (can reason)) $unknown)
