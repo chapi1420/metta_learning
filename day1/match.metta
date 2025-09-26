@@ -19,3 +19,4 @@
 !
 !
 !(match &self (:= (Green $who) T) ($who is really green))  
+!(match &self (:=( $clr $who) $tv) (it is $tv that $who is $clr))
