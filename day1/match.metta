@@ -10,3 +10,12 @@
 ; This is the corrected assertion
   !(match &self ($who is a $what) ($who the $what))
   
+; `:=` is a custom symbol. These are still purely symbolic expressions
+; ':=' is used to structure this knowledge, often representing a relation where 
+; the third element is a "truth value" for the fact expressed in the second element.
+(:= (Green Sam) T)
+(:= (White Tom) T)
+(:= (Green Tom) F)
+!
+!
+!(match &self (:= (Green $who) T) ($who is really green))  
