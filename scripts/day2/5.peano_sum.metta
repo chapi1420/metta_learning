@@ -10,15 +10,11 @@
 ;this is a simple example of addition using peano arithmetic.
 ;-------------------------------------------------------------------
 
+(:= (Add $x Z) $x)
+(:= (Add $x (S $y)) (S (Add $x $y))) ; This rule is simpler for demonstration
 
-
-;to do this, we will define a few basic concepts:
-(:= (Z) 0) ;define zero
-(:= (S $n) (+ $n 1)) ;define successor function, which adds one to a number
-(:= (plus $m (Z)) $m) ;define addition with zero
-(:= (plus $m (S $n)) (S (plus $m $n))) ;define addition with successor function
-
-;now we can use these definitions to perform addition:
+; Chaining the match would look like:
 !(match &self
-    (plus (S (S (Z))) (S (S (S (Z))))) ;this represents 2 + 3
-    $r) ;this should give us S(S(S(S(S(Z))))) as result, which is 5
+    (:= (Add (S Z) (S Z)) $r1)
+    (match &self (:= $r1 $r2)
+        $r2))
