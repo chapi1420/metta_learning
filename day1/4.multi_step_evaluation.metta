@@ -24,3 +24,13 @@
 
 ;starling combinator
 (:= (S $x $y $z) (($x $z) ($y $z)));this expression makes sure that $x followed by S and then followed by $y and then followed by $z will be ($x $z) ($y $z), just like logical distribution
+
+
+;lets move to applications:
+!(match &self
+    (:= (S K K x) $r)
+    $r) ;this should give us [((K x) (K x))] as result
+
+!(match &self
+    (:= (K x (K x)) $r)
+    $r) 
