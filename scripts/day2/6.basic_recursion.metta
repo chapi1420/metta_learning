@@ -17,3 +17,32 @@
 (= (length (:: $x $xs)) 
    (+ 1 (length $xs))) ;recursive case: the length of a non-empty list is 1 + length of the tail
 ! (length (:: A (:: B (:: C (:: D (:: E())))))) ; should return 5
+
+
+
+
+;now asume we have a list and we want to add the elements in the list:
+
+; Base Case: The sum of an empty list is 0
+(= (sum-list ()) 0)
+
+; Recursive Case: The sum is the head element ($x) plus the sum of the tail ($xs)
+(= (sum-list (:: $x $xs))
+   (+ $x (sum-list $xs)))
+
+; Evaluation: Calculate 1 + 2 + 3
+!(sum-list (:: 1 (:: 2 (:: 3 ()))))
+; Expected Result: 6
+
+
+
+
+;now we can define a function to reverse a list using recursion:
+; Base Case: The reverse of an empty list is an empty list
+(= (reverse ()) ())
+; Recursive Case: The reverse of a non-empty list is the reverse of the tail ($xs)
+; followed by the head element ($x)
+(= (reverse (:: $x $xs))
+    ((reverse $xs) $x))
+; Evaluation: Reverse the list (A B C D)
+!(reverse (:: A (:: B (:: C (:: D ())))))
