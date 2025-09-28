@@ -28,3 +28,30 @@
 ;notice that both the base and the number are required
 !('log-math result')
 !(log-math 10 100) ; should return 2 
+
+
+
+;trunc-math: used to truncate a number to its integer part
+!('trunc-math result')
+!(trunc-math 5.7) ; should return 5
+!(trunc-math -5.7) ; should return -5
+
+
+
+;ceil-math: gives the smallest integer greter than or equal to the number
+!('ceil-math result')
+!(ceil-math 5.2) ; should return 6
+!(ceil-math -5.2) ; should return -5
+
+
+;floor-math: gives the largest integer less than or equal to the number
+!('floor-math result')
+!(floor-math 5.7) ; should return 5
+!(floor-math -5.7) ; should return -6
+
+
+;round-math: used to round a number to the nearest integer
+!('round-math result')
+!(round-math 5.5) ; should return 6
+!(round-math 5.4) ; should return 5
+!(round-math -5.5) ; should return -6
