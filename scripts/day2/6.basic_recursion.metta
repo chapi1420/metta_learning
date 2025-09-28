@@ -46,3 +46,16 @@
     ((reverse $xs) $x))
 ; Evaluation: Reverse the list (A B C D)
 !(reverse (:: A (:: B (:: C (:: D ())))))
+
+
+;lets now calculate factorial of a number using recursion:
+; Base Case: Factorial of 0 is 1 (the multiplication identity)
+(= (factorial 0) 1)
+
+; Recursive Case: Factorial of n is n multiplied by factorial of (n-1)
+(= (factorial $n)
+   (* $n (factorial (- $n 1))))
+
+; Evaluation: Calculate 4! (4 * 3 * 2 * 1)
+;careful: this might take some time to compute
+!(factorial 4) ; Expected Result: 24
