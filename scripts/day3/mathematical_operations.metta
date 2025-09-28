@@ -79,3 +79,22 @@
 !(tan-math 0) ; should return 0
 !(tan-math (/ 3.14159 4)) ; should return 1
 !(atan-math 0) ; should return 0
+
+
+other mathematical operations
+isnan-math: used to check if a number is NaN (Not a Number)
+
+
+;min-atom: used to find the minimum value among a list of numbers
+!('min-atom result')
+!(min-atom (3 1 4 1) ) ; should return 1
+
+;max-atom: used to find the maximum value among a list of numbers
+!('max-atom result')
+!(max-atom (3 1 4 1 5 9)) ; should return 9
+
+
+;random-int: used to generate a random integer between two values (inclusive)
+!('random-int result')
+!(random-int &rng (2 9)) ; Returns any int number between 2 to 9
+
