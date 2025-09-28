@@ -55,3 +55,27 @@
 !(round-math 5.5) ; should return 6
 !(round-math 5.4) ; should return 5
 !(round-math -5.5) ; should return -6
+
+
+
+
+
+;trig functions
+;sin-math: used to calculate the sine of an angle in radians
+!('sin-math result')
+!(sin-math 0) ; should return 0
+!(sin-math (/ 3.14159 2)) ; should return 1 
+!(asin-math 1) ; should return 1.5708 (which is pi/2)
+
+;cos-math: used to calculate the cosine of an angle in radians
+!('cos-math result')
+!(cos-math 0) ; should return 1
+!(cos-math (/ 3.14159 2)) ; should return 0
+!(acos-math 0) ; should return 1.5708 (which is pi/2)
+
+
+;tan-math: used to calculate the tangent of an angle in radians
+!('tan-math result')
+!(tan-math 0) ; should return 0
+!(tan-math (/ 3.14159 4)) ; should return 1
+!(atan-math 0) ; should return 0
