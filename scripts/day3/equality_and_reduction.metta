@@ -22,7 +22,7 @@
 
 
 
-;'=alpha' (Alpha Equivalence):
+;3. '=alpha' (Alpha Equivalence):
 ; This operator checks if two expressions are equivalent up to renaming of bound variables.
 ;------------------------------------------------------------------------------------------------------------------
 ;why the concept of alpha equivalence in metta?
@@ -33,3 +33,31 @@
 !(=alpha (lambda ($x) (add $x 1)) (lambda ($y) (add $y 1))) ; should return true
 !(=alpha (lambda ($x) (add $x 1)) (lambda ($y) (add $y 2))) ; should return false
 
+
+
+;---------------------------THE CONCEPT OF ASSERTION--------------------------------
+;in metta programming language, the concept of assertion is useg to identify whather the function is performing
+;in the required manner or not. Eventhough, there are different assertions, all of them share the property of
+;comparing the first argument to the second argument and returning true if proven to be equal and false otherwise.
+;-----------------------------------------------------------------------------------
+
+;4. 'assertEqual': compares (sets of) results of evaluation of two expresions. returns a unit atom if both expressions after 
+;evaluation are equal, otherwise it returns false.
+!(assertEqual (+ 2 3) (- 8 3)) ; should return [()] -> true
+!(assertEqual (+ 2 3) (- 8 2)) ; should return error message -> false
+
+
+;5. 'assertAlphaEqual': compares two expressions for alpha equivalence. returns a unit atom if both expressions are alpha equivalent,
+;otherwise it returns false.
+!(assertAlphaEqual (lambda ($x) (add $x 1)) (lambda ($y) (add $y 1))) ; should return [()] -> true
+!(assertAlphaEqual (lambda ($x) (add $x 1)) (lambda ($y) (add $y 2))) ; should return error message -> false
+
+
+;6. 'assertEqualToResult': this is the same with 'assertEqual', but the second argument is not an expression, but a result of evaluation.
+!(assertEqualToResult (+ 2 3) 5) ; should return [()] -> true
+!(assertEqualToResult (+ 2 3) 6) ; should return error message -> false
+
+
+;7. 'assertAlphaEqualToResult': this is the same with 'assertAlphaEqual', but the second argument is not an expression, but a result of evaluation.
+!(assertAlphaEqualToResult (lambda ($x) (add $x 1)) (lambda ($y) (add $y 1))) ; should return [()] -> true
+!(assertAlphaEqualToResult (lambda ($x) (add $x 1)) (lambda ($y) (add $y 2))) ; should return error message -> false
