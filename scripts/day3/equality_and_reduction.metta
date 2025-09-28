@@ -19,3 +19,17 @@
 ; This operator returns the input unchanged.
 !(id 42) ; should return 42
 !(id "Hello, World!") ; should return "Hello, World!"
+
+
+
+;'=alpha' (Alpha Equivalence):
+; This operator checks if two expressions are equivalent up to renaming of bound variables.
+;------------------------------------------------------------------------------------------------------------------
+;why the concept of alpha equivalence in metta?
+;1. knowledge base efficiency: it helps in reducing redundancy by identifying equivalent expressions.
+;2. robust matching: it enhances pattern matching capabilities by recognizing structurally similar expressions.
+;3. AGI Foundation: it aligns with principles of logic and computation, which are crucial for AGI development.
+;------------------------------------------------------------------------------------------------------------------
+!(=alpha (lambda ($x) (add $x 1)) (lambda ($y) (add $y 1))) ; should return true
+!(=alpha (lambda ($x) (add $x 1)) (lambda ($y) (add $y 2))) ; should return false
+
