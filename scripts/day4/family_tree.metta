@@ -34,10 +34,13 @@
 ; Children of Chandler and Monica
 (Parent Chandler Adam)
 (Parent Monica Adam)
+
 (Parent Chandler Jane)
 (Parent Monica Jane)
+
 (Parent Chandler John)
 (Parent Monica John)
+
 (Parent Chandler Pam)
 (Parent Monica Pam)
 
@@ -52,13 +55,13 @@
 ; Define Rules
 (: Grandparent (-> Person Person Type))
 (Implies
-    (And (Parent $gp $p) (Parent $p $gc))
+    (and (Parent $gp $p) (Parent $p $gc))
     (Grandparent $gp $gc)
 )
 
 (: Sibling (-> Person Person Type))
 (Implies
-    (And
+    (and
         (Parent $p $s1)
         (Parent $p $s2)
         (Not (Equal $s1 $s2)) 
@@ -68,12 +71,32 @@
 
 (: AuntUncle (-> Person Person Type))
 (Implies
-    (And (Sibling $au $p) (Parent $p $ch))
+    (and (Sibling $au $p) (Parent $p $ch))
     (AuntUncle $au $ch)
 )
 
 (: Cousin (-> Person Person Type))
 (Implies
-    (And (Parent $p1 $c1) (Parent $p2 $c2) (Sibling $p1 $p2))
+    (and (Parent $p1 $c1) (Parent $p2 $c2) (Sibling $p1 $p2))
     (Cousin $c1 $c2)
 )
+
+;query examples
+
+;Get the Parents of John
+!(match &self  (Parent $x John) $x) ;[Chandler, Monica]
+
+;get the mother of Pam
+
+!(match &self (, (Parent $x Pam) (Female $x)) $x) ;[Monica]
+
+;get the siblings of Pam
+!(match &self (, (Parent $x Pam) (Parent $x $y )  ) $y);to be filtered
+
+
+;get the uncles of Tim
+!(match &self (,(Parent $x Tim) (Parent $y $x) (Parent $y $au) (Male $au)) $au);to be filtered
+
+
+;get nephews of John
+;get Predecessors of Bob
