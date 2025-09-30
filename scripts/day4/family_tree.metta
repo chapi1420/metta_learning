@@ -91,11 +91,11 @@
 !(match &self (, (Parent $x Pam) (Female $x)) $x) ;[Monica]
 
 ;get the siblings of Pam
-!(match &self (, (Parent $x Pam) (Parent $x $y )  ) $y);to be filtered
+!(unique( match &self (, (Parent $x Pam) (Parent $x $y )  ) $y));to be filtered
 
 
 ;get the uncles of Tim
-!(match &self (,(Parent $x Tim) (Parent $y $x) (Parent $y $au) (Male $au)) $au);to be filtered
+!(unique(match &self (,(Parent $x Tim) (Parent $y $x) (Parent $y $au) (Male $au)) $au));to be filtered
 
 
 ;get nephews of John
