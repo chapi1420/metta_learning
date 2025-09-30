@@ -64,7 +64,6 @@
     (and
         (Parent $p $s1)
         (Parent $p $s2)
-        (Not (Equal $s1 $s2)) 
     )
     (Sibling $s1 $s2)
 )
@@ -81,7 +80,6 @@
     (Cousin $c1 $c2)
 )
 
-;query examples
 
 ;Get the Parents of John
 !(match &self  (Parent $x John) $x) ;[Chandler, Monica]
@@ -91,12 +89,27 @@
 !(match &self (, (Parent $x Pam) (Female $x)) $x) ;[Monica]
 
 ;get the siblings of Pam
-!(unique( match &self (, (Parent $x Pam) (Parent $x $y )  ) $y));to be filtered
+!(unique( match &self (, (Parent $x Pam) (Parent $x $y )  ) $y));
 
 
 ;get the uncles of Tim
-!(unique(match &self (,(Parent $x Tim) (Parent $y $x) (Parent $y $au) (Male $au)) $au));to be filtered
+!(unique(match &self (,(Parent $x Tim) (Parent $y $x) (Parent $y $au) (Male $au)) $au));
 
 
 ;get nephews of John
+
+!(unique (match &self 
+(,
+    (Parent $Sibling $children) (Male $children)
+)$children))
+
+
 ;get Predecessors of Bob
+(= (GetAncestors $d)
+    (match &self 
+        (Parent $parent $d) 
+        ($parent (GetAncestors $parent)) 
+    )
+)
+
+!(GetAncestors Bob)
