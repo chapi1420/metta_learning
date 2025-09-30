@@ -53,9 +53,8 @@
 (= (factorial 0) 1)
 
 ; Recursive Case: Factorial of n is n multiplied by factorial of (n-1)
-(= (factorial $n)
-   (* $n (factorial (- $n 1))))
-
-; Evaluation: Calculate 4! (4 * 3 * 2 * 1)
-;careful: this might take some time to compute
-!(factorial 4) ; Expected Result: 24
+(= (factorial $x)
+   (if (> $x 0)
+       (* $x (factorial (- $x 1)))
+       1))
+! (factorial 5) ; 120 
