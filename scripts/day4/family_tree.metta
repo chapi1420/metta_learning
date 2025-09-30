@@ -4,42 +4,76 @@
 ;and then we will query the family tree to find out some relationships.
 ;---------------------------------------------------------------------------------
 
-;define types
-(:Person Type)
-(:Parent (-> Person Person Type))
-(:Child (-> Person Person Type))
-(:Married (Person Person Type))
-(:Man (-> Person Type))
-(:Female (-> Person Type))
+
+; Define Types and Predicates (Corrected 'Married' and used 'Male' as predicate)
+(: Person Type)
+(: Parent (-> Person Person Type))
+(: Child (-> Person Person Type))
+(: Married (-> Person Person Type)) 
+(: Male (-> Person Type))
+(: Female (-> Person Type))
 
 
-;define some people
-(: Chandler Person)
-(Male Chandler)
+; Define People and Gender Facts 
+(: Chandler Person) (Male Chandler)
+(: Monica Person) (Female Monica)
+(: John Person) (Male John)
+(: Pam Person) (Female Pam)
+(: Adam Person) (Male Adam)
+(: Jane Person) (Female Jane)
+(: Bob Person) (Male Bob)
+(: Tim Person) (Male Tim)
+(: Eve Person) (Female Eve)
+(: Joey Person) (Male Joey)
+(: Kim Person) (Female Kim)
 
-(: Monica Person)
-(Female Monica)
 
-(: John Person)
-(Male John)
+; Construct the Family Tree (Factual Assertions)
+(Married Chandler Monica)
 
-(: Pam Person)
-(Female Pam)
+; Children of Chandler and Monica
+(Parent Chandler Adam)
+(Parent Monica Adam)
+(Parent Chandler Jane)
+(Parent Monica Jane)
+(Parent Chandler John)
+(Parent Monica John)
+(Parent Chandler Pam)
+(Parent Monica Pam)
 
-(: Adam Person)
-(Male Adam)
+; Grandchildren
+(Parent John Bob)
+(Parent Pam Tim)
+(Parent Pam Kim)
+(Parent Adam Eve)
+(Parent Jane Joey)
 
-(: Jane Person)
-(Female Jane)
 
-(: Bob Person)
-(Male Bob)
+; Define Rules
+(: Grandparent (-> Person Person Type))
+(Implies
+    (And (Parent $gp $p) (Parent $p $gc))
+    (Grandparent $gp $gc)
+)
 
-(: Tim Person)
-(Male Tim)
+(: Sibling (-> Person Person Type))
+(Implies
+    (And
+        (Parent $p $s1)
+        (Parent $p $s2)
+        (Not (Equal $s1 $s2)) 
+    )
+    (Sibling $s1 $s2)
+)
 
-(: Eve Person)
-(Female Eve)
+(: AuntUncle (-> Person Person Type))
+(Implies
+    (And (Sibling $au $p) (Parent $p $ch))
+    (AuntUncle $au $ch)
+)
 
-(: Joey Person)
-(Male Joey)
+(: Cousin (-> Person Person Type))
+(Implies
+    (And (Parent $p1 $c1) (Parent $p2 $c2) (Sibling $p1 $p2))
+    (Cousin $c1 $c2)
+)
