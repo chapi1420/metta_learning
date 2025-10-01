@@ -54,31 +54,16 @@
 
 ; Define Rules
 (: Grandparent (-> Person Person Type))
-(Implies
-    (and (Parent $gp $p) (Parent $p $gc))
-    (Grandparent $gp $gc)
-)
+(= (Grandparent $x $y) (unique (match &self (, (Parent $x $p) (Parent $p $y)) $x)))
 
 (: Sibling (-> Person Person Type))
-(Implies
-    (and
-        (Parent $p $s1)
-        (Parent $p $s2)
-    )
-    (Sibling $s1 $s2)
-)
+(= (Sibling $x $y) (unique (match &self (, (Parent $p $x) (Parent $p $y) )$x)))
 
 (: AuntUncle (-> Person Person Type))
-(Implies
-    (and (Sibling $au $p) (Parent $p $ch))
-    (AuntUncle $au $ch)
-)
+(= (AuntUncle $x $y) (unique (match &self (, (Parent $p $y) (Sibling $p2 $p))) $p2))
+(= (Uncle $x $y) (, (AuntUncle $x $y) (Male $x)))
 
 (: Cousin (-> Person Person Type))
-(Implies
-    (and (Parent $p1 $c1) (Parent $p2 $c2) (Sibling $p1 $p2))
-    (Cousin $c1 $c2)
-)
 
 
 ;Get the Parents of John
@@ -89,27 +74,12 @@
 !(match &self (, (Parent $x Pam) (Female $x)) $x) ;[Monica]
 
 ;get the siblings of Pam
-!(unique( match &self (, (Parent $x Pam) (Parent $x $y )  ) $y));
-
+!(Sibling $x Pam)
 
 ;get the uncles of Tim
 !(unique(match &self (,(Parent $x Tim) (Parent $y $x) (Parent $y $au) (Male $au)) $au));
 
-
 ;get nephews of John
-
-!(unique (match &self 
-(,
-    (Parent $Sibling $children) (Male $children)
-)$children))
 
 
 ;get Predecessors of Bob
-(= (GetAncestors $d)
-    (match &self 
-        (Parent $parent $d) 
-        ($parent (GetAncestors $parent)) 
-    )
-)
-
-!(GetAncestors Bob)
